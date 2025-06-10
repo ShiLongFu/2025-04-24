@@ -57,21 +57,23 @@ if st.button("Predict"):
         transform=ax.transAxes
     )
     ax.axis('off')
-    plt.savefig("prediction_text.tif", bbox_inches='tight', dpi=300)
-    st.image("prediction_text.tif")
+    plt.savefig("prediction_text.png", bbox_inches='tight', dpi=300)
+    st.image("prediction_text.png")
 
-    # SHAP部分（保持不变，但解释类别可能需要调整）
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(pd.DataFrame([feature_values], columns=feature_names))
-    
-    # 使用类别1的SHAP解释（如果需要展示阳性的解释）
-   # 计算SHAP值并显示力图
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(pd.DataFrame([feature_values], columns=feature_names))
+   # SHAP部分修正（核心修改）
+   explainer = shap.TreeExplainer(model)
+   shap_values = explainer.shap_values(pd.DataFrame([feature_values], columns=feature_names))[1]  # 指定类别1
+   expected_value = explainer.expected_value[1]  # 获取类别1的基准值
 
-    shap.force_plot(explainer.expected_value, shap_values, pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
-    
-    plt.savefig("shap_force_plot.tif", bbox_inches='tight', dpi=1200)
-  
-    st.image("shap_force_plot.tif")
+   # 生成SHAP力图
+   plt.figure()
+   shap.force_plot(
+     expected_value,
+     shap_values, 
+     pd.DataFrame([feature_values], columns=feature_names),
+     matplotlib=True,
+     show=False
+    )
+   plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=300)  # 修改为png格式
+   st.image("shap_force_plot.png")
 # 运行Streamlit命令生成网页应用
