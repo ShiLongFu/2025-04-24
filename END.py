@@ -68,8 +68,11 @@ if st.button("Predict"):
    # 计算SHAP值并显示力图
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(pd.DataFrame([feature_values], columns=feature_names))
-
-    shap.force_plot(explainer.expected_value, shap_values[0], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
+   # 使用类别1的SHAP值
+    shap.force_plot(explainer.expected_value[1], 
+                shap_values[1][0],  # 注意双索引
+                pd.DataFrame([feature_values], columns=feature_names),
+                matplotlib=True)
     
     plt.savefig("shap_force_plot.tif", bbox_inches='tight', dpi=1200)
   
