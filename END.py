@@ -57,8 +57,8 @@ if st.button("Predict"):
         transform=ax.transAxes
     )
     ax.axis('off')
-    plt.savefig("prediction_text.tiff", bbox_inches='tight', dpi=300)
-    st.image("prediction_text.tiff")
+    plt.savefig("prediction_text.tif", bbox_inches='tight', dpi=300)
+    st.image("prediction_text.tif")
 
     # SHAP部分（保持不变，但解释类别可能需要调整）
     explainer = shap.TreeExplainer(model)
@@ -73,5 +73,5 @@ if st.button("Predict"):
     
     plt.savefig("shap_force_plot.tif", bbox_inches='tight', dpi=1200)
   
-    st.image("shap_force_plot.tiff")
+    st.image("shap_force_plot.tif")
 # 运行Streamlit命令生成网页应用
