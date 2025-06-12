@@ -47,7 +47,8 @@ if st.button("Predict"):
     probability_positive = predicted_proba[1] * 100  # 直接提取阳性概率
 
     # 显示结果（更新变量名）
-    text = f"Based on feature values, predicted probability of END is {probability_positive:.2f}%"
+    text = f"Based on feature values, predicted probability of END is {probability_positive:.2f}%.\n*Note: This predictor is developed for specific patients (see inclusion criteria of the study)."
+    
     fig, ax = plt.subplots(figsize=(8, 1))
     ax.text(
         0.5, 0.5, text,
