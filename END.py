@@ -25,6 +25,14 @@ feature_names = ["SDH", "Severe tSAH","Hemoglobin", "Fibrinogen"]
 # Streamlit的用户界面
 st.title("Early Neurological Deterioration (END) Predictor")
 
+# 添加注释（新增代码）▼▼▼▼▼▼▼▼
+st.markdown(
+    """<span style='font-size: 24px; font-style: italic;'>
+    *Note: This predictor is developed for specific patients (see inclusion criteria of the study).
+    </span>""",
+    unsafe_allow_html=True
+)
+
 # contusion: 分类选择
 SDH = st.selectbox("Subdural hemorrhage (SDH):", options=[0, 1], format_func=lambda x: 'No (0)' if x == 0 else 'Yes (1)')
 
@@ -47,7 +55,7 @@ if st.button("Predict"):
     probability_positive = predicted_proba[1] * 100  # 直接提取阳性概率
 
     # 显示结果（更新变量名）
-    text = f"Based on feature values, predicted probability of END is {probability_positive:.2f}%.\n*Note: This predictor is developed for specific patients (see inclusion criteria of the study)."
+    text = f"Based on feature values, predicted probability of END is {probability_positive:.2f}%."
     
     fig, ax = plt.subplots(figsize=(8, 1))
     ax.text(
